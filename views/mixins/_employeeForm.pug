@@ -1,0 +1,49 @@
+mixin employeeForm(employee = {})
+  form(action=`/add/${employee.id || ''}` method="POST" class="card" enctype="multipart/form-data")
+    label(for="name") Name 
+    input(type="text" name="name" value=employee.name)
+    label(for="bio") Bio 
+    textarea(name="bio")= employee.bio
+    label(for="photo") Photo
+      input(type="file" name="photo" id="photo" accept="image/gif, image/png, image/jpeg")
+      if employee.photo
+        img(src=`/uploads/${employee.photo}`, alt=employee.name width=200)
+    - const choices = ["CCM", "SCM", "SRM"]
+    - const tags = employee.tags || []
+    ul.tags 
+      each choice in choices 
+        .tag.tag__choice 
+          input(type="checkbox" id=choice value=choice name="tags" checked=(tags.includes(choice)))
+          label(for=choice) #{choice}
+    label(for="startDate") Start Date
+    input(type="date" id="startDate" name="startDate" value=(undefined===employee || !employee.startDate ? '' : employee.startDate.toISOString().split('T')[0].split('T')[0]))
+    label(for="endDate") End Date
+    input(type="date" id="endDate" name="endDate" value=(undefined===employee || !employee.endDate ? '' : employee.endDate.toISOString().split('T')[0].split('T')[0]))
+    label(for="vacationQuota") Vacation Quota
+    input(type="number" id="vacationQuota" name="vacationQuota" value=employee.vacationQuota)
+    label(for="lieuBalance") Lieu Balance
+    input(type="number" id="lieuBalance" name="lieuBalance" value=employee.lieuBalance)
+    label(for="sickBalance") Sick Balance
+    input(type="number" id="sickBalance" name="sickBalance" value=employee.sickBalance)
+    label(for="miscBalance") Misc Balance
+    input(type="number" id="miscBalance" name="miscBalance" value=employee.miscBalance)
+    label(for="rollover") rollover
+    input(type="number" id="rollover" name="rollover" value=employee.rollover)
+    label(for="allowanceProfile") Allowance Profile
+    select(name='allowanceProfile', id='allowanceProfile')
+      each val in ['profile1' , 'profile2' , 'profile3']
+        option(value=val, selected=(val===employee.allowanceProfile)) #{val}
+    label(for="rank") Rank
+    select(name='rank', id='rank')
+      each val in ['BA1' , 'BA2' , 'BA3']
+        option(value=val, selected=(val === employee.rank)) #{val}
+    label(for="shift") Shift
+    select(name='shift', id='shift')
+      each val in ['USE1' , 'USE2' , 'USE3']
+        option(value=val, selected=(val === employee.shift)) #{val}
+    label(for="brid") BRID 
+    input(type="text" name="brid" value=employee.brid)
+    label(for="email") Email 
+    input(type="email" name="email" value=employee.email)
+    input(type="submit" value="Save" class="button")
+

@@ -1,0 +1,15 @@
+mixin requestForm(employee)
+  form.reviewer(action=`/requests/${employee._id}` method="POST")
+    label(for="category") Category 
+    select(name='category', id='category')
+      each val in ['VAC' , 'SICK' , 'MISC', 'LTE', 'LTT']
+        option(value=val) #{val}
+    label(for="shift") Shift
+    select(name='shift', id='shift')
+      each val in ['USE1' , 'USE2' , 'USE3']
+        option(value=val, selected=(val === employee.shift)) #{val}
+    label(for="date") Requested Date
+    input(type="date" id="date" name="date")
+    label(for="text") Notes
+    textarea(name="text" placeholder="Accompanying message for your request")
+    input.button(type="submit" value="Save & Request Approval")

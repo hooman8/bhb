@@ -1,0 +1,9 @@
+extends layout 
+
+include mixins/_employeeForm
+
+block content 
+  .inner
+    //- pre= h.dump(employee)
+    h2=title
+    +employeeForm(employee)

@@ -1,0 +1,33 @@
+extends layout 
+
+include mixins/_requestForm
+include mixins/_request
+
+block content 
+  //- pre= h.dump(employee)
+  .single 
+    .single__hero
+      img.single__image(src=`/uploads/${employee.photo || 'store.png'}`)
+      h2.title.title--single
+        a(href=`/employee/${employee.slug}`) #{employee.name}
+  .single__details.inner
+    p.single__location Vacation: #{employee.vacationQuota} 
+    p= employee.bio
+
+    if employee.tags 
+      ul.tags 
+        each tag in employee.tags 
+          li.tag
+            a.tag__link(href=`/tags/${tag}`)
+              span.tag__text ##{tag}
+  if user
+    .inner
+      h2 Submit a new request
+      +requestForm(employee)
+
+  if employee.requests
+    .reviews
+      each request in employee.requests
+        .review
+          +request(request)
+

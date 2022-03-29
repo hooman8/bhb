@@ -1,0 +1,10 @@
+extends layout 
+
+include mixins/_employeeCard
+
+block content 
+  .inner 
+    h2=title 
+    .stores 
+      each employee in employees 
+        +employeeCard(employee)

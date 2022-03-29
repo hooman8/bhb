@@ -1,0 +1,25 @@
+mixin employeeCard(employee = {})
+  .store
+    .store__hero
+      .store__actions
+        if user && user.isAdmin
+          .store__action.store__action--heart
+            form.heart(method="POST" action=`/api/employees/${employee._id}/heart`)
+              - const heartSrings = user.hearts.map(obj => obj.toString())
+              - const heartClass = heartSrings.includes(employee._id.toString()) ? 'heart__button--hearted' : '' 
+              button.heart__button(type="submit" name="heart" class=heartClass)
+                !=h.icon('heart')
+        if user && (employee.owner.equals(user._id) || user.isAdmin)
+          .store__action.store__action--edit
+            a(href=`/employees/${employee._id}/edit`)
+              != h.icon('pencil')
+        if user && user.isAdmin
+          .store__action.store__action--count
+            !=h.icon('review')
+            span= employee.requests.length
+
+      img(src=`/uploads/${employee.photo || 'store.png'}`)
+      h2.title
+        a(href=`/employee/${employee.slug}`) #{employee.name}
+    .store__details
+      p= employee.bio.split(' ').slice(0, 25).join(' ')

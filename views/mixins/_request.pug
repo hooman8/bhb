@@ -1,0 +1,14 @@
+mixin request(request)
+  .review__header
+    .review__author
+      img.avatar(src=request.author.gravatar)
+      p= request.employee.name
+    .review__stars Requested #{request.category}
+    - const submittedDate = `Submitted ${h.moment(request.created).fromNow()}`
+    - const requestedDate = `For ${h.moment(request.date[0].toISOString().split('T')[0].split('T')[0]).format("MMM Do YY")}`
+    time.review__time(datetime=request.created)= requestedDate
+    time.review__time(datetime=request.created)= request.state
+  .review__author
+    p= submittedDate 
+  .review__body
+    p= request.text

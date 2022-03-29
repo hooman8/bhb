@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  .inner
+  h2 Top #{employees.length} Requestors
+  table.table
+    thead
+      td photo
+      td Ranking
+      td Name 
+      td Requests
+      td Average Rating
+    each employee, i in employees
+      tr
+        td: img(width=200 src=`/uploads/${employee.photo || 'store.png'}` alt=employee.name)
+        td #{i + 1}
+        td: a(href=`/employee/${employee.slug}`)= employee.name
+        td= employee.requests.length
+        td #{Math.round(employee.totalVacationTaken * 10) / 10} / 35
