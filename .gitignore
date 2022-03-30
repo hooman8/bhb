@@ -1,4 +1,4 @@
 node_modules
 variables.env
 public/uploads/*
-/home/dom/Documents/bhb/public/dist/*
+public/dist/*
