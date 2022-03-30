@@ -34,6 +34,10 @@ const requestSchema = new Schema({
     type: String,
     required: 'Please specify the shift that this request is submitted for'
   },
+  actualHours: {
+    type: Number,
+    required: 'You must provide the hours that this shift entails'
+  },
   date:{
     type: [Date],
     required: 'You must provide a date'

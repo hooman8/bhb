@@ -8,6 +8,8 @@ mixin requestForm(employee)
     select(name='shift', id='shift')
       each val in ['USE1' , 'USE2' , 'USE3']
         option(value=val, selected=(val === employee.shift)) #{val}
+    label(for="actualHours") How many hours this shift entails?
+    input(type="number" id="actualHours" name="actualHours")
     label(for="date") Requested Date
     input(type="date" id="date" name="date")
     label(for="text") Notes

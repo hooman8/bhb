@@ -27,7 +27,7 @@ block content
 
   if employee.requests
     .reviews
-      each request in employee.requests
+      each request in employee.requests.reverse()
         .review
           +request(request)
 
