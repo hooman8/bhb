@@ -69,10 +69,17 @@ exports.createEmployee = async (req, res) => {
 
 // display employees - router.get('/employees', employeeController.getEmployees);
 exports.getEmployees = async(req, res) => {
-  // Query the database for a list of all store
-  const employees = await Employee.find().populate('requests');
+  const page = req.params.page || 1; 
+  const limit = 8;
+  const skip = (page * limit) - limit; 
+  // Query the database for a list of all employees
+  
+  const employeesPromise = Employee.find().skip(skip).limit(limit).populate('requests');
+  const countPromise = Employee.count();
+  const [employees, count] = await Promise.all([employeesPromise, countPromise]);
+  const pages = Math.ceil(count / limit);
   // res.json(employees);
-  res.render('employees', {title: 'Employees', employees});
+  res.render('employees', {title: 'Employees', employees, page, pages, count});
 };
 
 // you have to be able to confirm that you are the actual employee

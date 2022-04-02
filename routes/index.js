@@ -20,6 +20,8 @@ router.post('/add',
 router.get('/employees/:id/edit', catchErrors(employeeController.editEmployee));
 // Get all employees
 router.get('/employees', catchErrors(employeeController.getEmployees));
+router.get('/employees/page/:page', catchErrors(employeeController.getEmployees));
+
 // Update a single employee - edit employee uses this function for updating
 router.post('/add/:id',
   employeeController.upload,

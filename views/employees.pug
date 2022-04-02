@@ -1,6 +1,7 @@
 extends layout 
 
 include mixins/_employeeCard
+include mixins/_pagination 
 
 block content 
   .inner 
@@ -8,3 +9,4 @@ block content
     .stores 
       each employee in employees 
         +employeeCard(employee)
+    +pagination(page, pages, count)

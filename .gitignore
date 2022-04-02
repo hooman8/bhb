@@ -2,3 +2,5 @@ node_modules
 variables.env
 public/uploads/*
 public/dist/*
+public/dist/App.bundle.js.map
+public/dist/style.css.map
