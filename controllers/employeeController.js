@@ -90,13 +90,12 @@ exports.getEmployees = async(req, res) => {
 
 // you have to be able to confirm that you are the actual employee
 const confirmOwner = (employee, user) => {
-  console.log(!user.isAdmin);
-  // !employee.owner.equals(user._id)
-  if(!employee.owner.equals(user._id)) {
-    if((!user.isAdmin)) {
-      throw Error('You must own a store in order to edit it!');
-    }
+  if((!user.isAdmin)) {
+    throw Error('You must be an admin to edit an employee profile!');
   }
+  // }
+  // if(!employee.owner.equals(user._id)) {
+  // }
 };
 // edit a single employee router.get('/employees/:id/edit', catchErrors(employeeController.editEmployee))
 exports.editEmployee = async (req, res) => {
@@ -119,7 +118,7 @@ exports.updateEmployee = async (req, res) => {
     runValidators: true // check againts the required validation in our model
   }).exec();
   // redirect them the store and tell them it worked
-  req.flash('success', `successfully update <strong> ${employee.name}'s profile </strong>. <a href="/employees/${employee.slug}"> View Employee</a>`);
+  req.flash('success', `successfully update <strong> ${employee.name}'s profile </strong>. <a href="/employee/${employee.slug}"> View Employee</a>`);
   res.redirect(`/employees/${employee._id}/edit`);
 
 };

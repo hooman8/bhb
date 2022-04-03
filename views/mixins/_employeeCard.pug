@@ -9,7 +9,8 @@ mixin employeeCard(employee = {})
               - const heartClass = heartSrings.includes(employee._id.toString()) ? 'heart__button--hearted' : '' 
               button.heart__button(type="submit" name="heart" class=heartClass)
                 !=h.icon('heart')
-        if user && (employee.owner.equals(user._id) || user.isAdmin)
+                //- employee.owner.equals(user._id)
+        if user && user.isAdmin
           .store__action.store__action--edit
             a(href=`/employees/${employee._id}/edit`)
               != h.icon('pencil')
