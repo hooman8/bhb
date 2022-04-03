@@ -78,6 +78,12 @@ exports.getEmployees = async(req, res) => {
   const countPromise = Employee.count();
   const [employees, count] = await Promise.all([employeesPromise, countPromise]);
   const pages = Math.ceil(count / limit);
+  // what if they ask for a page that doesnt exist?
+  if(!employees.length && skip){
+    req.flash('info', ` Page ${page} doesn't exist. Therefore, you've got redirected to page ${pages}`);
+    res.redirect(`/employees/page/${pages}`);
+    return;
+  }
   // res.json(employees);
   res.render('employees', {title: 'Employees', employees, page, pages, count});
 };
